@@ -1,0 +1,15 @@
+{
+  "name": "humanvoice_bot",
+  "version": "1.0.0",
+  "description": "A bot to make an edit on the script page when a new human voice is added or update",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hassan Amin",
+  "license": "ISC",
+  "dependencies": {
+    "oauth-1.0a": "^2.2.6",
+    "request": "^2.88.0"
+  }
+}
