@@ -57,6 +57,7 @@ function onHumanVoiceExport(msg) {
         return channel.ack(msg);
     }
     console.log(content, parsedContent);
+    const { title, wikiSource } = content;
     wikiUtils.prependArticleText(title, wikiSource, botToken, botSecret, parsedContent.message)
     .then((res) => {
         console.log('res is', res);
