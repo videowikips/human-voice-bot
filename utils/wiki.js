@@ -55,7 +55,7 @@ function prependArticleText(title, wikiSource, key, secret, prependtext, callbac
           prependtext,
           contentformat: 'text/x-wiki',
           token: csrfToken,
-          // minor: true,
+          minor: true,
         },
       }
       console.log(requestData)
