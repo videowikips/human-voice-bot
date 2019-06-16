@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node_modules/pm2/bin/pm2 start index.js --name=videowiki_humanvoice_bot",
-    "stop": "pm2 delete videowiki_humanvoice_bot",
+    "stop": "pm2 stop videowiki_humanvoice_bot && pm2 delete videowiki_humanvoice_bot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Hassan Amin",
