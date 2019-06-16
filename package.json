@@ -4,6 +4,7 @@
   "description": "A bot to make an edit on the script page when a new human voice is added or update",
   "main": "index.js",
   "scripts": {
+    "start": "node_modules/pm2/bin/pm2 start index.js --name=videowiki_humanvoice_bot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Hassan Amin",
@@ -12,6 +13,7 @@
     "amqplib": "^0.5.3",
     "dotenv": "^8.0.0",
     "oauth-1.0a": "^2.2.6",
+    "pm2": "^3.5.1",
     "request": "^2.81.0"
   }
 }

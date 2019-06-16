@@ -39,6 +39,7 @@ let channel;
 
 rabbitMQService.createChannel(rabbitmqServer)
 .then((ch) => {
+    console.log('Created channel for humanvoice point');
     channel = ch;
     ch.prefetch(1);
     ch.assertQueue(HUMAN_VOICE_QUEUE, { durable: true });
