@@ -2,7 +2,7 @@ require('dotenv').config({ path: '.env' });
 const rabbitmqServer = process.env.RABBITMQ_SERVER;
 const botToken = process.env.MEDIAWIKI_ACCESS_TOKEN;
 const botSecret = process.env.MEDIAWIKI_ACCESS_TOKEN_SECRET;
-
+const fs = require('fs');
 const rabbitMQService = require('./vendors/rabbitmq');
 const wikiUtils = require('./utils/wiki');
 const messageParser = require('./messageParser');
@@ -18,22 +18,22 @@ const messageParser = require('./messageParser');
         - sections: array of section names that have been update with message
             of type update
 */
-const createParams = {
-    title: 'User:Hassan.m.amin/sandbox',
-    wikiSource: 'https://en.wikipedia.org',
-    user: 'Hassan.m.amin',
-    date: new Date(),
-    type: 'create'
-}
+// const createParams = {
+//     title: 'User:Hassan.m.amin/sandbox',
+//     wikiSource: 'https://en.wikipedia.org',
+//     user: 'Hassan.m.amin',
+//     date: new Date(),
+//     type: 'create'
+// }
 
-const updateParams = {
-    title: 'User:Hassan.m.amin/sandbox',
-    wikiSource: 'https://en.wikipedia.org',
-    user: 'Hassan.m.amin',
-    date: new Date(),
-    type: 'update',
-    sections: ['Overview', 'After overview'],
-}
+// const updateParams = {
+//     title: 'User:Hassan.m.amin/sandbox',
+//     wikiSource: 'https://en.wikipedia.org',
+//     user: 'Hassan.m.amin',
+//     date: new Date(),
+//     type: 'update',
+//     sections: ['Overview', 'After overview'],
+// }
 const HUMAN_VOICE_QUEUE = 'HUMAN_VOICE_QUEUE';
 let channel;
 
