@@ -17,7 +17,6 @@ function createChannel(address, callback = () => {}) {
             return callback(err);
           }
           resolve(ch);
-          // ch.sendToQueue(CONVERT_QUEUE, new Buffer(JSON.stringify({videoId: '5c98f40f3fe26b11ed1a50aa'})))
           return callback(null, ch)
         })
       })
@@ -28,7 +27,6 @@ function createChannel(address, callback = () => {}) {
           return callback(err);
         }
         resolve(ch);
-        // ch.sendToQueue(CONVERT_QUEUE, new Buffer(JSON.stringify({videoId: '5c98f40f3fe26b11ed1a50aa'})))
         return callback(null, ch)
       })
     }

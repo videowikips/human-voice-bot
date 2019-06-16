@@ -43,9 +43,6 @@ rabbitMQService.createChannel(rabbitmqServer)
     ch.prefetch(1);
     ch.assertQueue(HUMAN_VOICE_QUEUE, { durable: true });
     ch.consume(HUMAN_VOICE_QUEUE, onHumanVoiceExport,  { noAck: false });
-    setTimeout(() => {
-        // ch.sendToQueue(HUMAN_VOICE_QUEUE, new Buffer(JSON.stringify(updateParams)), { persistent: true });
-    }, 2000);
 })
 .catch((err) => {
     throw err;
@@ -58,8 +55,7 @@ function onHumanVoiceExport(msg) {
         console.log('Invalid content', parsedContent);
         return channel.ack(msg);
     }
-    // console.log(content, parsedContent)
-    // channel.ack(msg)
+    console.log(content, parsedContent);
     wikiUtils.prependArticleText(title, wikiSource, botToken, botSecret, parsedContent.message)
     .then((res) => {
         console.log('res is', res);
