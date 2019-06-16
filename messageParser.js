@@ -1,10 +1,10 @@
 
 function generateCreateMessage({ user, date }) {
-    return `{{ReadShow|read=|show=Human voice added by [[User:${user}]] on ${date} }}`
+    return `{{ReadShow|read=|show=Human voice added by [[User:${user}]] on ${date} }} <br /> \n`
 }
 
 function generateUpdateMessage({ user, date, sections }) {
-    return `{{ReadShow|read=|show=Human voice updated by [[User:${user}]] for sections ${sections.join(',')} on ${date}}}`;
+    return `{{ReadShow|read=|show=Human voice updated by [[User:${user}]] for sections ${sections.join(',')} on ${date}}} <br />\n`;
 }
 
 function validateMessageContent({title, wikiSource, user, date, type, sections}) {
