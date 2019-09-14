@@ -7,6 +7,10 @@ function generateUpdateMessage({ user, date, sections }) {
     return `{{ReadShow|read=|show=Human voice updated by [[User:${user}]] for sections ${sections.join(',')} on ${date}}} <br />\n`;
 }
 
+function generateSlideAudioChangeMessage({ username, sectionTitle, type, date }) {
+    return `[[User:${username}|${username}]] ${type} audio in section ${sectionTitle} on ${date} <br />\n`;
+}
+
 function validateMessageContent({title, wikiSource, user, date, type, sections}) {
     if (!title || !wikiSource || !user || !date || !type) {
         return { valid: false, message: 'title, wikiSource, user, date and type fields are required' };
@@ -35,6 +39,11 @@ function parseContentToMessage(content) {
     }
 }
 
+function parseSlideAudioChangeMessage(content) {
+    return generateSlideAudioChangeMessage(content);
+}
+
 module.exports = {
     parseContentToMessage,
+    parseSlideAudioChangeMessage,
 }

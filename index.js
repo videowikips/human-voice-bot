@@ -35,6 +35,7 @@ const messageParser = require('./messageParser');
 //     sections: ['Overview', 'After overview'],
 // }
 const HUMAN_VOICE_QUEUE = 'HUMAN_VOICE_QUEUE';
+const NOTTS_ARTICLE_SLIDE_AUDIO_CHANGE = 'NOTTS_ARTICLE_SLIDE_AUDIO_CHANGE';
 let channel;
 
 rabbitMQService.createChannel(rabbitmqServer)
@@ -43,7 +44,9 @@ rabbitMQService.createChannel(rabbitmqServer)
     channel = ch;
     ch.prefetch(1);
     ch.assertQueue(HUMAN_VOICE_QUEUE, { durable: true });
+    ch.assertQueue(NOTTS_ARTICLE_SLIDE_AUDIO_CHANGE, { durable: true });
     ch.consume(HUMAN_VOICE_QUEUE, onHumanVoiceExport,  { noAck: false });
+    ch.consume(NOTTS_ARTICLE_SLIDE_AUDIO_CHANGE, onArticleSlideAudioChange,  { noAck: false });
 })
 .catch((err) => {
     throw err;
@@ -67,4 +70,21 @@ function onHumanVoiceExport(msg) {
         console.log('error is', err);
         channel.ack(msg);
     })
+}
+
+function onArticleSlideAudioChange(msg) {
+    const { title, wikiSource, username, sectionTitle, type, date } = JSON.parse(msg.content.toString());
+
+    const content = messageParser.parseSlideAudioChangeMessage({ username, sectionTitle, type, date });
+    console.log(content)
+    wikiUtils.prependArticleText(title, wikiSource, botToken, botSecret, content)
+    .then((res) => {
+        console.log('res is', res);
+        channel.ack(msg);
+    })
+    .catch((err) => {
+        console.log('error is', err);
+        channel.ack(msg);
+    })
+
 }
