@@ -53,38 +53,50 @@ rabbitMQService.createChannel(rabbitmqServer)
 })
 
 function onHumanVoiceExport(msg) {
-    const content = JSON.parse(msg.content.toString());
-    let parsedContent = messageParser.parseContentToMessage(content);
-    if (!parsedContent.valid) {
-        console.log('Invalid content', parsedContent);
-        return channel.ack(msg);
+    try {
+
+        const content = JSON.parse(msg.content.toString());
+        let parsedContent = messageParser.parseContentToMessage(content);
+        if (!parsedContent.valid) {
+            console.log('Invalid content', parsedContent);
+            return channel.ack(msg);
+        }
+        console.log(content, parsedContent);
+        const { title, wikiSource } = content;
+        wikiUtils.prependArticleText(title, wikiSource, botToken, botSecret, parsedContent.message)
+        .then((res) => {
+            console.log('res is', res);
+            channel.ack(msg);
+        })
+        .catch((err) => {
+            console.log('error is', err);
+            channel.ack(msg);
+        })
+    } catch(e) {
+        console.log(e)
+        channel.ack(msg);
     }
-    console.log(content, parsedContent);
-    const { title, wikiSource } = content;
-    wikiUtils.prependArticleText(title, wikiSource, botToken, botSecret, parsedContent.message)
-    .then((res) => {
-        console.log('res is', res);
-        channel.ack(msg);
-    })
-    .catch((err) => {
-        console.log('error is', err);
-        channel.ack(msg);
-    })
 }
 
 function onArticleSlideAudioChange(msg) {
-    const { title, wikiSource, username, sectionTitle, type, date } = JSON.parse(msg.content.toString());
+    
+    try {
+        const { title, wikiSource, username, sectionTitle, type, date } = JSON.parse(msg.content.toString());
 
-    const content = messageParser.parseSlideAudioChangeMessage({ username, sectionTitle, type, date });
-    console.log(content)
-    wikiUtils.prependArticleText(title, wikiSource, botToken, botSecret, content)
-    .then((res) => {
-        console.log('res is', res);
-        channel.ack(msg);
-    })
-    .catch((err) => {
-        console.log('error is', err);
-        channel.ack(msg);
-    })
+        const content = messageParser.parseSlideAudioChangeMessage({ username, sectionTitle, type, date });
+        console.log(content)
+        wikiUtils.prependArticleText(title, wikiSource, botToken, botSecret, content)
+        .then((res) => {
+            console.log('res is', res);
+            channel.ack(msg);
+        })
+        .catch((err) => {
+            console.log('error is', err);
+            channel.ack(msg);
+        })
+    } catch (e) {
+        console.log(e)
+        channel.ack(msg)
+    }
 
 }
